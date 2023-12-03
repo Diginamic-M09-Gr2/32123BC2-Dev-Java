@@ -3,9 +3,11 @@ package fr.diginamic.projetspring.controllers;
 import fr.diginamic.projetspring.entities.Acteur;
 import fr.diginamic.projetspring.services.ActeurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/acteurs")
@@ -24,8 +26,11 @@ public class ActeurController {
     }
 
     @GetMapping("/{id}")
-    public Acteur getActeurById(@PathVariable Long id) {
-        return acteurService.getActeurById(id);
+    public ResponseEntity<Acteur> getActeurById(@PathVariable Long id) {
+        Optional<Acteur> acteur = acteurService.getActeurById(id);
+
+        return acteur.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping

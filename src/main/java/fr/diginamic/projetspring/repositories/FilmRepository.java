@@ -2,9 +2,10 @@ package fr.diginamic.projetspring.repositories;
 
 import fr.diginamic.projetspring.entities.Film;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface FilmRepository extends JpaRepository<Film, Long> {
+    // Ajoutez des méthodes personnalisées si nécessaire
 
 }

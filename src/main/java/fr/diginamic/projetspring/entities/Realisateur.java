@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 public class Realisateur {
-
+    // Ajoutez les annotations pour la clé primaire et la génération automatique de l'ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,22 +15,25 @@ public class Realisateur {
     private String lieuNaissance;
     private String urlProfile;
 
-
-    @OneToMany(mappedBy = "realisateur")
+    @OneToMany(mappedBy = "realisateur", cascade = CascadeType.ALL)
     private List<Film> filmsRealises;
 
     // Constructeurs
     public Realisateur() {
     }
 
-    public Realisateur(String nom) {
+    public Realisateur(String nom, LocalDate dateNaissance, String lieuNaissance, String urlProfile) {
         this.nom = nom;
+        this.dateNaissance = dateNaissance;
+        this.lieuNaissance = lieuNaissance;
+        this.urlProfile = urlProfile;
     }
 
     // Getters et setters
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -38,6 +41,7 @@ public class Realisateur {
     public String getNom() {
         return nom;
     }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -45,6 +49,7 @@ public class Realisateur {
     public LocalDate getDateNaissance() {
         return dateNaissance;
     }
+
     public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
@@ -52,6 +57,7 @@ public class Realisateur {
     public String getLieuNaissance() {
         return lieuNaissance;
     }
+
     public void setLieuNaissance(String lieuNaissance) {
         this.lieuNaissance = lieuNaissance;
     }
@@ -59,6 +65,7 @@ public class Realisateur {
     public String getUrlProfile() {
         return urlProfile;
     }
+
     public void setUrlProfile(String urlProfile) {
         this.urlProfile = urlProfile;
     }

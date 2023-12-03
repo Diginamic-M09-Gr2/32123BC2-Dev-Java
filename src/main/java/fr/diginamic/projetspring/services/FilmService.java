@@ -2,8 +2,8 @@ package fr.diginamic.projetspring.services;
 
 import fr.diginamic.projetspring.entities.Acteur;
 import fr.diginamic.projetspring.entities.Film;
-import fr.diginamic.projetspring.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -15,6 +15,10 @@ public class FilmService {
 
     @Autowired
     private FilmRepository filmRepository;
+
+    public interface FilmRepository extends JpaRepository<Film, Long> {
+        List<Film> findByActeurs_Id(Long acteurId);
+    }
 
     public static void insertFilm(Film films) {
     }
@@ -37,6 +41,8 @@ public class FilmService {
 
     // Fonctionnalités supplémentaires
 
+
+
     public List<Acteur> getActeursByFilm(Long filmId) {
         Optional<Film> film = filmRepository.findById(filmId);
         return film.map(Film::getActeurs)
@@ -44,7 +50,10 @@ public class FilmService {
     }
 
     public List<Film> getFilmsByActeur(Long acteurId) {
-        return null;
+        // Implémentez la logique pour récupérer les films associés à un acteur en fonction de l'acteurId
+        // Utilisez le repository approprié pour obtenir ces informations
+        // Vous pouvez également utiliser des requêtes personnalisées si nécessaire
+        return filmRepository.findByActeurs_Id(acteurId);
     }
 
     public Film createFilm(Film film) {

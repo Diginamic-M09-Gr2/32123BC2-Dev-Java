@@ -11,12 +11,12 @@ public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nom;
     private LocalDate anneeSortie;
     private String rating;
     private String urlProfile;
     private String lieuTournage;
-    private String Genres;
     private String langue;
     private String resume;
     private String pays;
@@ -25,23 +25,42 @@ public class Film {
     @JoinColumn(name = "realisateur_id")
     private Realisateur realisateur;
 
-    @OneToMany(mappedBy = "film")
+    @ManyToMany
+    @JoinTable(
+            name = "film_genre",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<Genre> genres;
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL)
+    private List<RoleFilm> roles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "film_acteur",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "acteur_id")
+    )
     private List<Acteur> acteurs;
+
 
     // Constructeurs
     public Film() {
     }
 
-    public Film(String nom, Realisateur realisateur, List<Acteur> acteurs) {
+    public Film(String nom, Realisateur realisateur, List<Genre> genres, List<RoleFilm> roles) {
         this.nom = nom;
         this.realisateur = realisateur;
-        this.acteurs = acteurs;
+        this.genres = genres;
+        this.roles = roles;
     }
 
     // Getters et setters
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -49,6 +68,7 @@ public class Film {
     public String getNom() {
         return nom;
     }
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -56,6 +76,7 @@ public class Film {
     public LocalDate getAnneeSortie() {
         return anneeSortie;
     }
+
     public void setAnneeSortie(LocalDate anneeSortie) {
         this.anneeSortie = anneeSortie;
     }
@@ -82,14 +103,6 @@ public class Film {
 
     public void setLieuTournage(String lieuTournage) {
         this.lieuTournage = lieuTournage;
-    }
-
-    public String getGenres() {
-        return Genres;
-    }
-
-    public void setGenres(String genres) {
-        Genres = genres;
     }
 
     public String getLangue() {
@@ -119,9 +132,28 @@ public class Film {
     public Realisateur getRealisateur() {
         return realisateur;
     }
+
     public void setRealisateur(Realisateur realisateur) {
         this.realisateur = realisateur;
     }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<RoleFilm> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<RoleFilm> roles) {
+        this.roles = roles;
+    }
+
+
     public List<Acteur> getActeurs() {
         return acteurs;
     }

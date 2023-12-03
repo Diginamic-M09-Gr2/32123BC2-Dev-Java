@@ -6,76 +6,60 @@ import java.util.List;
 
 @Entity
 public class Acteur {
-
+    // Ajoutez les annotations pour la clé primaire et la génération automatique de l'ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nom;
-    private LocalDate dateNaissance;
-    private String LieuNaissance;
-    private String urlProfile;
+    private String idImdb;
+    private String identite;
+    private String dateNaissance;
 
-    @ManyToOne
-    @JoinColumn(name = "film_id")
-    private Film film;
-    @OneToMany(mappedBy = "acteur")
-    private List<RoleFilm> roles;
+    private final Adresse lieuNaissance;
 
-    // Constructeurs
-    public Acteur() {
+
+
+    // d'autres champs et méthodes si nécessaires
+
+    // constructeurs
+
+    public Acteur(String idImdb, String identite, String dateNaissance, Adresse lieuNaissance) {
+        this.idImdb = idImdb;
+        this.identite = identite;
+        this.dateNaissance = dateNaissance;
+        this.lieuNaissance = lieuNaissance;
     }
 
-    public Acteur(String nom, Film film) {
-        this.nom = nom;
-        this.film = film;
+    // getters/setters
+
+    public String getIdImdb() {
+        return idImdb;
     }
 
-    // Getters et setters
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdImdb(String idImdb) {
+        this.idImdb = idImdb;
     }
 
-    public String getNom() {
-        return nom;
-    }
-    public void setNom(String nom) {
-        this.nom = nom;
+    public String getIdentite() {
+        return identite;
     }
 
-    public LocalDate getDateNaissance() {
+    public void setIdentite(String identite) {
+        this.identite = identite;
+    }
+
+    public String getDateNaissance() {
         return dateNaissance;
     }
-    public void setDateNaissance(LocalDate dateNaissance) {
+
+    public void setDateNaissance(String dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
-
-    public String getLieuNaissance() {
-        return LieuNaissance;
-    }
-    public void setLieuNaissance(String lieuNaissance) {
-        LieuNaissance = lieuNaissance;
+    public Adresse getLieuNaissance() {
+        return lieuNaissance;
     }
 
-    public String getUrlProfile() {
-        return urlProfile;
-    }
-    public void setUrlProfile(String urlProfile) {
-        this.urlProfile = urlProfile;
-    }
 
-    public Film getFilm() {
-        return film;
-    }
-    public void setFilm(Film film) {
-        this.film = film;
-    }
 
-    public List<RoleFilm> getRoles() {
-        return roles;
-    }
-
+    // ...
 }

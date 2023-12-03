@@ -19,7 +19,6 @@ public class RoleFilm {
     private Film film;
 
     // Constructeurs
-
     public RoleFilm() {
     }
 
@@ -30,7 +29,6 @@ public class RoleFilm {
     }
 
     // Getters et Setters
-
     public Long getId() {
         return id;
     }

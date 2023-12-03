@@ -5,18 +5,12 @@ import java.util.List;
 
 @Entity
 public class Genre {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String type;
 
-    @ManyToMany
-    @JoinTable(
-            name = "film_genre",
-            joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id")
-    )
+    @ManyToMany(mappedBy = "genres")
     private List<Film> films;
 
     // Constructeurs
