@@ -83,5 +83,8 @@ public class RoleFilmService {
         return null;
     }
 
+    public void deleteRole(Long id) {
+    }
+
     // Ajoutez d'autres méthodes en fonction des besoins
 }

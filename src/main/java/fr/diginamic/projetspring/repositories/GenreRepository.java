@@ -1,15 +1,19 @@
 package fr.diginamic.projetspring.repositories;
 
+import fr.diginamic.projetspring.entities.Film;
 import fr.diginamic.projetspring.entities.Genre;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-/**
- * Interface repository pour l'entité Genre, utilisant Spring Data JPA.
- */
+import java.util.List;
+
 public interface GenreRepository extends JpaRepository<Genre, Long> {
 
-    // Aucune méthode spécifique déclarée ici, car JpaRepository offre déjà des méthodes génériques pour les opérations CRUD.
+    // Requête personnalisée pour récupérer les films par nom de genre
+    @Query("SELECT f FROM Film f " +
+            "WHERE f.genre.type = :nomGenre")
+    List<Film> findFilmsByGenreType(@Param("nomGenre") String nomGenre);
 
-    // Ajoutez d'autres méthodes déclaratives en fonction des besoins
-
+    // Autres méthodes pour les requêtes restantes
 }

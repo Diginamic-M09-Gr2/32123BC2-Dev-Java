@@ -26,16 +26,6 @@ public class RealisateurService {
         this.realisateurRepository = realisateurRepository;
     }
 
-
-    /**
-     * Insère un réalisateur dans la base de données.
-     *
-     * @param realisateur Le réalisateur à insérer.
-     */
-    public static void insertFilm(Realisateur realisateur) {
-        // Implémentation selon les besoins
-    }
-
     /**
      * Récupère tous les réalisateurs.
      *
@@ -55,24 +45,23 @@ public class RealisateurService {
         return realisateurRepository.findById(id);
     }
 
-
     /**
      * Enregistre un nouveau réalisateur dans la base de données.
      *
      * @param realisateur Le réalisateur à enregistrer.
      * @return Le réalisateur enregistré.
      */
-  public Realisateur saveRealisateur(Realisateur realisateur) {
+    public Realisateur saveRealisateur(Realisateur realisateur) {
         return realisateurRepository.save(realisateur);
     }
-  
-     /**
-     * Enregistre un nouveau réalisateur dans la base de données.
-     *
-     * @param realisateur Le réalisateur à enregistrer.
-     * @return Le réalisateur enregistré.
-     */
 
+    /**
+     * Met à jour un réalisateur existant.
+     *
+     * @param id          L'identifiant du réalisateur à mettre à jour.
+     * @param realisateur Les nouvelles données du réalisateur.
+     * @return Le réalisateur mis à jour, ou null si le réalisateur avec l'ID spécifié n'existe pas.
+     */
     public Realisateur updateRealisateur(Long id, Realisateur realisateur) {
         // Logique de mise à jour du réalisateur
         if (realisateurRepository.existsById(id)) {
@@ -92,4 +81,9 @@ public class RealisateurService {
     }
 
     // Ajoutez d'autres méthodes en fonction des besoins
+
+    // Getter pour realisateurRepository
+    public RealisateurRepository getRealisateurRepository() {
+        return realisateurRepository;
+    }
 }

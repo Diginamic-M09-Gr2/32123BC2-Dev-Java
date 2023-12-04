@@ -2,7 +2,6 @@ package fr.diginamic.projetspring.controllers;
 
 import fr.diginamic.projetspring.entities.Film;
 import fr.diginamic.projetspring.entities.RoleFilm;
-import fr.diginamic.projetspring.services.ActeurService;
 import fr.diginamic.projetspring.services.FilmService;
 import fr.diginamic.projetspring.services.RoleFilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ public class FilmController {
     /** Service gérant la logique métier des films. */
     private final FilmService filmService;
 
-    /** Service gérant la logique métier des acteurs. */
-    private final ActeurService acteurService;
-
     /** Service gérant la logique métier des rôles dans les films. */
     private final RoleFilmService roleFilmService;
 
@@ -33,13 +29,11 @@ public class FilmController {
      * Constructeur du contrôleur avec injection des services.
      *
      * @param filmService    Service gérant la logique métier des films.
-     * @param acteurService  Service gérant la logique métier des acteurs.
      * @param roleFilmService Service gérant la logique métier des rôles dans les films.
      */
     @Autowired
-    public FilmController(FilmService filmService, ActeurService acteurService, RoleFilmService roleFilmService) {
+    public FilmController(FilmService filmService, RoleFilmService roleFilmService) {
         this.filmService = filmService;
-        this.acteurService = acteurService;
         this.roleFilmService = roleFilmService;
     }
 

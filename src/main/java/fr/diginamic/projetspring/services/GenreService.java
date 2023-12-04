@@ -5,6 +5,9 @@ import fr.diginamic.projetspring.repositories.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Service gérant les opérations liées à l'entité Genre.
  */
@@ -31,6 +34,41 @@ public class GenreService {
      */
     public Genre saveGenre(Genre genre) {
         return genreRepository.save(genre);
+    }
+
+    /**
+     * Récupère tous les genres présents dans la base de données.
+     *
+     * @return La liste de tous les genres.
+     */
+    public List<Genre> getAllGenres() {
+        return genreRepository.findAll();
+    }
+
+    /**
+     * Récupère un genre par son identifiant.
+     *
+     * @param id L'identifiant du genre.
+     * @return Le genre correspondant à l'identifiant.
+     */
+    public Genre getGenreById(Long id) {
+        Optional<Genre> optionalGenre = genreRepository.findById(id);
+        return optionalGenre.orElse(null);
+    }
+
+    /**
+     * Met à jour un genre existant dans la base de données.
+     *
+     * @param id    L'identifiant du genre à mettre à jour.
+     * @param genre Les nouvelles données du genre.
+     * @return Le genre mis à jour.
+     */
+    public Genre updateGenre(Long id, Genre genre) {
+        if (genreRepository.existsById(id)) {
+            genre.setId(id);
+            return genreRepository.save(genre);
+        }
+        return null;
     }
 
     /**

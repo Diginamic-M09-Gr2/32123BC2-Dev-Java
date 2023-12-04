@@ -5,6 +5,7 @@ import fr.diginamic.projetspring.entities.Film;
 import fr.diginamic.projetspring.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
  * Service gérant les opérations liées à l'entité Film.
  */
 @Service
+@Transactional
 public class FilmService {
 
     @Autowired
@@ -24,7 +26,8 @@ public class FilmService {
      *
      * @param film Le film à insérer.
      */
-    public static void insertFilm(Film film) {
+    @Transactional
+    public void insertFilm(Film film) {
         // Implémentation selon les besoins
     }
 
@@ -33,6 +36,7 @@ public class FilmService {
      *
      * @return Une liste de tous les films.
      */
+    @Transactional(readOnly = true)
     public List<Film> getAllFilms() {
         return filmRepository.findAll();
     }
@@ -43,6 +47,7 @@ public class FilmService {
      * @param id L'identifiant du film.
      * @return Le film correspondant à l'identifiant, ou un Optional vide s'il n'existe pas.
      */
+    @Transactional(readOnly = true)
     public Optional<Film> getFilmById(Long id) {
         return filmRepository.findById(id);
     }
@@ -53,6 +58,7 @@ public class FilmService {
      * @param film Le film à sauvegarder.
      * @return Le film sauvegardé.
      */
+    @Transactional
     public Film saveFilm(Film film) {
         return filmRepository.save(film);
     }
@@ -62,6 +68,7 @@ public class FilmService {
      *
      * @param id L'identifiant du film à supprimer.
      */
+    @Transactional
     public void deleteFilm(Long id) {
         filmRepository.deleteById(id);
     }
@@ -72,6 +79,7 @@ public class FilmService {
      * @param filmId L'identifiant du film.
      * @return La liste des acteurs du film, ou une liste vide si le film n'existe pas.
      */
+    @Transactional(readOnly = true)
     public List<Acteur> getActeursByFilm(Long filmId) {
         Optional<Film> film = filmRepository.findById(filmId);
         return film.map(Film::getActeurs)
@@ -84,6 +92,7 @@ public class FilmService {
      * @param acteurId L'identifiant de l'acteur.
      * @return La liste des films dans lesquels l'acteur a joué.
      */
+    @Transactional(readOnly = true)
     public List<Film> getFilmsByActeur(Long acteurId) {
         // Implémentation selon les besoins
         return null;
@@ -95,6 +104,7 @@ public class FilmService {
      * @param film Le film à créer.
      * @return Le film créé.
      */
+    @Transactional
     public Film createFilm(Film film) {
         return film;
     }
@@ -106,10 +116,21 @@ public class FilmService {
      * @param film Les nouvelles données du film.
      * @return Le film mis à jour, ou un Optional vide si le film avec l'ID spécifié n'existe pas.
      */
+    @Transactional
     public Optional<Film> updateFilm(Long id, Film film) {
         // Implémentation selon les besoins
         return Optional.empty();
     }
 
     // Ajoutez d'autres méthodes en fonction des besoins
+
+    // Getters and Setters
+
+    public FilmRepository getFilmRepository() {
+        return filmRepository;
+    }
+
+    public void setFilmRepository(FilmRepository filmRepository) {
+        this.filmRepository = filmRepository;
+    }
 }
