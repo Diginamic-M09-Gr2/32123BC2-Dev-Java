@@ -3,6 +3,7 @@ package fr.diginamic.projetspring.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,7 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    private LocalDate anneeSortie;
+    private Date anneeSortie;
     private String rating;
     private String urlProfile;
     private String lieuTournage;
@@ -53,10 +54,10 @@ public class Film {
         this.nom = nom;
     }
 
-    public LocalDate getAnneeSortie() {
+    public Date getAnneeSortie() {
         return anneeSortie;
     }
-    public void setAnneeSortie(LocalDate anneeSortie) {
+    public void setAnneeSortie(Date anneeSortie) {
         this.anneeSortie = anneeSortie;
     }
 

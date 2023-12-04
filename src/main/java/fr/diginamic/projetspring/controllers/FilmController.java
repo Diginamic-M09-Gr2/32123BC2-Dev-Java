@@ -64,12 +64,6 @@ public class FilmController {
 
     // Opérations spécifiques
 
-    @GetMapping("/acteur/{acteurId}")
-    public ResponseEntity<List<Film>> getFilmsByActeur(@PathVariable Long acteurId) {
-        List<Film> films = filmService.getFilmsByActeur(acteurId);
-        return new ResponseEntity<>(films, HttpStatus.OK);
-    }
-
     @GetMapping("/roles/{filmId}")
     public ResponseEntity<List<RoleFilm>> getRolesByFilm(@PathVariable Long filmId) {
         List<RoleFilm> roles = roleFilmService.getRolesByFilm(filmId);

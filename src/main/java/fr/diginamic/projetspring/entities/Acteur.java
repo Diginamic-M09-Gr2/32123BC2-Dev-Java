@@ -1,7 +1,7 @@
 package fr.diginamic.projetspring.entities;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,7 +11,7 @@ public class Acteur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
-    private LocalDate dateNaissance;
+    private Date dateNaissance;
     private String LieuNaissance;
     private String urlProfile;
 
@@ -45,10 +45,10 @@ public class Acteur {
         this.nom = nom;
     }
 
-    public LocalDate getDateNaissance() {
+    public Date getDateNaissance() {
         return dateNaissance;
     }
-    public void setDateNaissance(LocalDate dateNaissance) {
+    public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 

@@ -1,4 +1,4 @@
-package fr.diginamic.projetspring;
+/*package fr.diginamic.projetspring;
 
 import fr.diginamic.projetspring.entities.Acteur;
 import fr.diginamic.projetspring.entities.Film;
@@ -34,7 +34,7 @@ public class TraitementFichierApplication implements CommandLineRunner {
     }
 
 
-    /* Alimentation de la base de données à partir de fichiers CSV  */
+    /* Alimentation de la base de données à partir de fichiers CSV
     @Override
     public void run(String... args) throws Exception {
         Path pathActeurs = Paths.get("C:/dev-java/acteurs.csv");  // Import acteurs.csv
@@ -91,7 +91,7 @@ public class TraitementFichierApplication implements CommandLineRunner {
             role.setPersonnage(elements[2]);
             roleFilmService.saveRoleFilm(role);
         }
-        /* Path pathFilm_Realisateurs = Paths.get("C:/dev-java/film_realisateurs.csv");  // Import film_realisateurs.csv
+        /*Path pathFilm_Realisateurs = Paths.get("C:/dev-java/film_realisateurs.csv");  // Import film_realisateurs.csv
         List<String> rowFilm_Realisateurs = Files.readAllLines(pathFilm_Realisateurs);
         rowFilmRoles.remove(0);
         for (String rowFilm_Realisateur : rowFilm_Realisateurs){
@@ -101,6 +101,6 @@ public class TraitementFichierApplication implements CommandLineRunner {
             film_realisateur.setNom(elements[0]);
             film_realisateur.setRealisateur(elements[1]);
             Film_RealisateurService.insertFilm(film_realisateur);
-        }*/
+        }
     }
-}
+*/

@@ -2,6 +2,7 @@ package fr.diginamic.projetspring.services;
 
 import fr.diginamic.projetspring.entities.Acteur;
 import fr.diginamic.projetspring.entities.Film;
+import fr.diginamic.projetspring.repositories.ActeurRepository;
 import fr.diginamic.projetspring.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,10 +42,6 @@ public class FilmService {
         Optional<Film> film = filmRepository.findById(filmId);
         return film.map(Film::getActeurs)
                 .orElse(Collections.emptyList());
-    }
-
-    public List<Film> getFilmsByActeur(Long acteurId) {
-        return null;
     }
 
     public Film createFilm(Film film) {
