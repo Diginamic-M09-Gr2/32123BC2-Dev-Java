@@ -16,19 +16,16 @@ public class Acteur {
     private String lieuNaissance;
     private String urlProfile;
 
-    @ManyToOne
-    @JoinColumn(name = "film_id")
-    private Film film;
-
     @OneToMany(mappedBy = "acteur")
     private List<RoleFilm> roles;
 
     public Acteur() {
     }
 
-    public Acteur(String nom, Film film) {
+    // Modifiez le constructeur pour prendre en compte la liste de rôles
+    public Acteur(String nom, List<RoleFilm> roles) {
         this.nom = nom;
-        this.film = film;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -69,14 +66,6 @@ public class Acteur {
 
     public void setUrlProfile(String urlProfile) {
         this.urlProfile = urlProfile;
-    }
-
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
     }
 
     public List<RoleFilm> getRoles() {
