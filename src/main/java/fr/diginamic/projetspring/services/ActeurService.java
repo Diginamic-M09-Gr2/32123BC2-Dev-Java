@@ -39,7 +39,7 @@ public class ActeurService {
      * @return L'acteur correspondant à l'identifiant, ou null s'il n'existe pas.
      */
     public Acteur getActeurById(Integer acteurId) {
-        return acteurRepository.findById(acteurId).orElse(null);
+        return acteurRepository.findById(Long.valueOf(acteurId)).orElse(null);
     }
 
     /**
@@ -76,7 +76,7 @@ public class ActeurService {
      * @param acteurId L'identifiant de l'acteur à supprimer.
      */
     public void deleteActeur(Integer acteurId) {
-        acteurRepository.deleteById(acteurId);
+        acteurRepository.deleteById(Long.valueOf(acteurId));
     }
 
 

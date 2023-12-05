@@ -1,18 +1,41 @@
 package fr.diginamic.projetspring.repositories;
 
 import fr.diginamic.projetspring.entities.Film;
+import fr.diginamic.projetspring.entities.Realisateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import fr.diginamic.projetspring.entities.Acteur;
 
 import java.util.List;
 
 /**
  * Interface repository pour l'entité Film, utilisant Spring Data JPA.
+ * Cette interface définit les méthodes permettant d'interagir avec la base de données
+ * pour l'entité Film.
  */
 @Repository
 public interface FilmRepository extends JpaRepository<Film, Long> {
+
+    /**
+     * Recherche les films associés à un réalisateur donné.
+     *
+     * @param realisateur Le réalisateur.
+     * @return Liste des films associés au réalisateur.
+     */
+    List<Film> findAllByRealisateur(Realisateur realisateur);
+
+    /**
+     * Recherche les films dont l'année de sortie est comprise entre deux valeurs
+     * et qui ont un acteur spécifique.
+     *
+     * @param debut Année de début.
+     * @param fin   Année de fin.
+     * @param acteur Acteur spécifique.
+     * @return Liste des films répondant aux critères.
+     */
+    List<Film> findFilmsByAnneeSortieBetweenAndRolefilm_Acteur(Integer debut, Integer fin, Acteur acteur);
 
     /**
      * Recherche les films associés à un acteur donné.
