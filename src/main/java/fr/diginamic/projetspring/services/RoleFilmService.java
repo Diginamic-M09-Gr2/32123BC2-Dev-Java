@@ -20,7 +20,8 @@ public class RoleFilmService {
      */
     @Autowired
     private RoleFilmRepository roleRepository;
-
+    @Autowired
+    private RoleFilmRepository roleFilmRepository;
     /**
      * Récupère un rôle par son identifiant.
      *
@@ -29,6 +30,10 @@ public class RoleFilmService {
      */
     public Optional<RoleFilm> getRoleById(Integer roleId) {
         return roleRepository.findById(roleId);
+    }
+    public List<RoleFilm> getRolesByFilm(Long filmId) {
+        // Ajoutez ici la logique pour récupérer les rôles dans un film
+        return roleFilmRepository.findRolesByFilmId(filmId);
     }
 
     /**

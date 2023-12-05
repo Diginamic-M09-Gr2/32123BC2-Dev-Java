@@ -4,41 +4,51 @@ import fr.diginamic.projetspring.entities.Film;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Interface repository pour l'entité Film, utilisant Spring Data JPA.
  */
-public interface FilmRepository extends JpaRepository<Film, Integer> {
-    // Find all films by annee de sortie
-    List<Film> findAllByAnneeSortie(Integer anneeSortie);
+@Repository
+public interface FilmRepository extends JpaRepository<Film, Long> {
 
-    // Find all films by langue
-    List<Film> findAllByLangue(String langue);
+    /**
+     * Recherche les films associés à un acteur donné.
+     *
+     * @param acteurId Identifiant de l'acteur.
+     * @return Liste des films associés à l'acteur.
+     */
+    List<Film> findFilmsByActeurId(Long acteurId);
 
-    // Find all films by lieu de tournage
-    List<Film> findAllByLieuTournage(String lieuTournage);
+    /**
+     * Recherche les films sortis entre deux années données.
+     *
+     * @param debut Année de début.
+     * @param fin   Année de fin.
+     * @return Liste des films sortis entre les années données.
+     */
+    List<Film> findFilmsBetweenYears(int debut, int fin);
 
-    // Find all films by réalisateur nom
-    List<Film> findAllByNom(String nom);
+    /**
+     * Recherche les films communs entre deux acteurs.
+     *
+     * @param acteurId1 Identifiant du premier acteur.
+     * @param acteurId2 Identifiant du deuxième acteur.
+     * @return Liste des films communs entre les deux acteurs.
+     */
+    @Query("SELECT f FROM Film f " +
+            "JOIN RoleFilm r ON f.id = r.film.id " +
+            "JOIN Acteur a ON r.acteur.id = a.id " +
+            "WHERE a.id IN (:acteurId1, :acteurId2)")
+    List<Film> findCommonFilmsByActeurs(@Param("acteurId1") Long acteurId1, @Param("acteurId2") Long acteurId2);
 
-    // Find all films by pays
-    List<Film> findAllByPays(String pays);
-
-    // Find all films by rating
-    List<Film> findAllByRating(String rating);
-
-    // Find all films by resume
-    List<Film> findAllByResume(String resume);
-
-    // Find all films by URL profile
-    List<Film> findAllByUrlProfile(String urlProfile);
-
-    // Find all films by genre
-    List<Film> findAllByGenres(String genres);
-
-    // Find all films by realisateur id
-    @Query("SELECT f FROM Film f JOIN f.realisateur r WHERE r.id = :realisateurId")
-    List<Film> findAllByRealisateurId(@Param("realisateurId") Integer realisateurId);
+    /**
+     * Recherche les films par le nom du genre.
+     *
+     * @param nomGenre Nom du genre.
+     * @return Liste des films du genre spécifié.
+     */
+    List<Film> findFilmsByGenreNom(String nomGenre);
 }
