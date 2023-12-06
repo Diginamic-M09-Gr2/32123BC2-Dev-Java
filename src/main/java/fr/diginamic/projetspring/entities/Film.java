@@ -24,7 +24,6 @@ public class Film {
     private String idIMDB;
 
     /** Titre du film. */
-    private String titre;
 
     /** Année de sortie du film. */
     private Integer anneeSortie;
@@ -97,19 +96,12 @@ public class Film {
      *
      * @return Le titre du film.
      */
-    public String getTitre() {
-        return titre;
-    }
 
     /**
      * Définit le titre du film.
      *
      * @param titre Le titre du film.
      */
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
     /**
      * Obtient l'année de sortie du film.
      *
@@ -141,7 +133,6 @@ public class Film {
                 "filmId=" + filmId +
                 ", nom='" + nom + '\'' +
                 ", idIMDB='" + idIMDB + '\'' +
-                ", titre='" + titre + '\'' +
                 ", anneeSortie=" + anneeSortie +
                 ", rating='" + rating + '\'' +
                 ", urlProfile='" + urlProfile + '\'' +

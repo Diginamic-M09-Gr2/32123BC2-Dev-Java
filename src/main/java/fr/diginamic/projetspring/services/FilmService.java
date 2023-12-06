@@ -1,13 +1,13 @@
 package fr.diginamic.projetspring.services;
 
 import fr.diginamic.projetspring.entities.Film;
+import fr.diginamic.projetspring.entities.RoleFilm;
 import fr.diginamic.projetspring.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import fr.diginamic.projetspring.entities.RoleFilm;
 
 /**
  * Service gérant la logique métier liée aux films.
@@ -62,7 +62,6 @@ public class FilmService {
         return filmRepository.findById(id)
                 .map(existingFilm -> {
                     // Ajoutez ici la logique de mise à jour si nécessaire
-                    existingFilm.setTitre(newFilm.getTitre());
                     existingFilm.setAnneeSortie(newFilm.getAnneeSortie());
                     // Mettez à jour d'autres champs si nécessaire
                     return filmRepository.save(existingFilm);
