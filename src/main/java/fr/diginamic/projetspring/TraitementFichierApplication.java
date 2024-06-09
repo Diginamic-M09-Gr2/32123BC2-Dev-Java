@@ -30,6 +30,6 @@ public class TraitementFichierApplication implements CommandLineRunner {
         importFilms.importFilms();
         importRealisateurs.importRealisateurs();
         importRealisateurFilms.importFilmRealisateurs();
-        //importRoleFilms.importRoleFilms();
+        importRoleFilms.importRoleFilms();
     }
 }
