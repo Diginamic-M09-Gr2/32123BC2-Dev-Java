@@ -135,7 +135,7 @@ GET /films/{id}/roles
  
 ## Contributeurs
  
-## -Fatima Barrabah 
+## Fatima Barrabah 
 ## Christ Mougani  
 ## Christopher Alfred 
 ## Dorian Cormerais
