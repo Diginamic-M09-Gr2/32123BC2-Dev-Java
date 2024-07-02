@@ -1,7 +1,5 @@
 # Projet Spring Boot - Application de Gestion de Données de Cinéma
 
-## Groupe: Fatima Barrabah; Christ Mougani; Christopher Alfred; Dorian Cormerais
-
 ## Objectifs
  
 Les 3 objectifs de ce projet sont les suivants : 
@@ -137,5 +135,7 @@ GET /films/{id}/roles
  
 ## Contributeurs
  
-- Votre Nom
-- Autres Contributeurs
+## -Fatima Barrabah 
+## Christ Mougani  
+## Christopher Alfred 
+## Dorian Cormerais
