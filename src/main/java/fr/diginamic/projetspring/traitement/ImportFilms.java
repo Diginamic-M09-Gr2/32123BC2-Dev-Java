@@ -16,6 +16,32 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * La classe {@code ImportFilms} permet d'importer les données des films depuis un fichier CSV.
+ * <p>
+ * Cette classe lit un fichier CSV contenant des informations sur des films,
+ * crée des objets {@link Film} à partir de ces informations et les sauvegarde
+ * dans une base de données via le service {@link FilmService}.
+ * </p>
+ * <p>
+ * Les données du fichier CSV doivent être formatées avec les colonnes suivantes :
+ * <ol>
+ * <li>ID IMDB</li>
+ * <li>Nom</li>
+ * <li>Année de sortie</li>
+ * <li>Rating</li>
+ * <li>URL du profil</li>
+ * <li>Lieu de tournage</li>
+ * <li>Genres (séparés par des virgules)</li>
+ * <li>Langue</li>
+ * <li>Résumé</li>
+ * <li>Pays</li>
+ * </ol>
+ * </p>
+ * <p>
+ * Les duplicatas d'ID IMDB sont gérés pour éviter les conflits d'intégrité de données.
+ * </p>
+ */
 @Component
 public class ImportFilms {
 
@@ -25,7 +51,12 @@ public class ImportFilms {
     @Autowired
     private GenreService genreService;
 
-    // Method to convert genre strings to Genre objects
+    /**
+     * Convertit une chaîne de caractères représentant les genres en un ensemble d'objets {@link Genre}.
+     *
+     * @param genresString La chaîne de caractères contenant les genres séparés par des virgules.
+     * @return Un ensemble d'objets {@link Genre}.
+     */
     private Set<Genre> convertGenres(String genresString) {
         Set<Genre> genres = new HashSet<>();
         String[] genreTypes = genresString.split(",");
@@ -38,13 +69,20 @@ public class ImportFilms {
         return genres;
     }
 
+    /**
+     * Importe les films depuis un fichier CSV situé à {@code src/main/resources/dataset/films.csv}.
+     * <p>
+     * Cette méthode lit les données du fichier, élimine les duplicatas d'ID IMDB et sauvegarde
+     * les films uniques dans la base de données.
+     * </p>
+     */
     public void importFilms() {
         Set<String> uniqueFilmIds = new HashSet<>();
 
         Path pathFilms = Paths.get("src/main/resources/dataset/films.csv");
         try {
             List<String> rowFilms = Files.readAllLines(pathFilms);
-            rowFilms.remove(0);
+            rowFilms.remove(0); // Supprime l'en-tête du fichier CSV
 
             for (String rowFilm : rowFilms) {
                 System.out.println(rowFilm);
@@ -54,11 +92,13 @@ public class ImportFilms {
                     continue;
                 }
                 String idIMDB = elements[0].trim();
-                // Check if ID already exists
+                // Vérifier si l'ID IMDB est unique
                 if (!uniqueFilmIds.contains(idIMDB)) {
                     Film film = createFilmFromElements(elements);
                     try {
+                        // Sauvegarder le film dans la base de données
                         filmService.createFilm(film);
+                        // Ajouter l'ID IMDB à l'ensemble des IDs uniques
                         uniqueFilmIds.add(idIMDB);
                     } catch (DataIntegrityViolationException e) {
                         System.out.println("Duplicate ID: " + idIMDB);
@@ -72,6 +112,16 @@ public class ImportFilms {
         }
     }
 
+    /**
+     * Crée un objet {@link Film} à partir des éléments d'une ligne du fichier CSV.
+     * <p>
+     * Cette méthode extrait les données d'une ligne du fichier CSV, les formate et les assigne
+     * aux propriétés de l'objet {@link Film}.
+     * </p>
+     *
+     * @param elements Les éléments de la ligne CSV, séparés par des points-virgules.
+     * @return Un objet {@link Film} avec les propriétés définies à partir des éléments de la ligne CSV.
+     */
     private Film createFilmFromElements(String[] elements) {
         Film film = new Film();
         film.setIdIMDB(elements[0].trim());
@@ -100,7 +150,7 @@ public class ImportFilms {
             film.setResume("");
         }
 
-        // Convert genres and set them to the film
+        // Convertir les genres et les assigner au film
         if (elements.length >= 7) {
             String genresString = elements[6];
             Set<Genre> genres = convertGenres(genresString);

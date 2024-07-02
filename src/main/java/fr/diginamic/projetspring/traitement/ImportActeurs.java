@@ -14,6 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Classe permettant l'importation des acteurs depuis un fichier CSV.
+ */
 @Component
 public class ImportActeurs {
 
@@ -22,13 +25,16 @@ public class ImportActeurs {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("MMMM d yyyy");
 
+    /**
+     * Méthode principale pour importer les acteurs depuis un fichier CSV.
+     */
     public void importActeurs() {
         Set<String> uniqueActeurIds = new HashSet<>();
 
         Path pathActeurs = Paths.get("src/main/resources/dataset/acteurs.csv");
         try {
             List<String> rowsActeurs = Files.readAllLines(pathActeurs);
-            rowsActeurs.remove(0);
+            rowsActeurs.remove(0); // Supprime l'en-tête du fichier CSV
             for (String rowActeur : rowsActeurs) {
                 System.out.println(rowActeur);
                 String[] elements = rowActeur.split(";");
@@ -51,6 +57,13 @@ public class ImportActeurs {
         }
     }
 
+    /**
+     * Crée un objet Acteur à partir des éléments d'une ligne CSV.
+     *
+     * @param elements Les éléments de la ligne CSV
+     * @return L'acteur créé
+     * @throws ParseException Si la date de naissance ne peut pas être parsée
+     */
     private Acteur createActeurFromElements(String[] elements) throws ParseException {
         Acteur acteur = new Acteur();
         acteur.setIdIMDB(elements[0].trim());
@@ -60,6 +73,7 @@ public class ImportActeurs {
             acteur.setDateNaissance(dateNaissance);
         } catch (ParseException e) {
             e.printStackTrace();
+            throw e; // Relancer l'exception après l'avoir enregistrée
         }
         acteur.setLieuNaissance(elements[3]);
         acteur.setUrlProfile(elements[5]);
