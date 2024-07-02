@@ -132,10 +132,9 @@ GET /acteurs/{id}/films
 ```
 GET /films/{id}/roles
 ```
- 
-## Contributeurs
- 
-# Fatima Barrabah 
-# Christ Mougani  
-# Christopher Alfred 
-# Dorian Cormerais
+
+### Collaborateurs
+- Berrabah Fatima
+- Alfred Christopher
+- Cormerais Dorian
+- Mougani Christ
