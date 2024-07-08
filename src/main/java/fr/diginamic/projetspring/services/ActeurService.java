@@ -3,6 +3,8 @@ package fr.diginamic.projetspring.services;
 import fr.diginamic.projetspring.entities.Acteur;
 import fr.diginamic.projetspring.repositories.ActeurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -28,8 +30,8 @@ public class ActeurService {
      *
      * @return Une liste de tous les acteurs.
      */
-    public List<Acteur> getAllActeurs() {
-        return acteurRepository.findAll();
+    public Page<Acteur> getAllActeurs(Pageable pageable) {
+        return acteurRepository.findAll(pageable);
     }
 
     /**
@@ -48,9 +50,9 @@ public class ActeurService {
      * @param acteur L'acteur à créer.
      * @return L'acteur créé.
      */
- 
-        // Logique de création de l'acteur (par exemple, validation des données, etc.)
-  public Acteur createActeur(Acteur acteur) {
+
+    // Logique de création de l'acteur (par exemple, validation des données, etc.)
+    public Acteur createActeur(Acteur acteur) {
         return acteurRepository.save(acteur);
     }
 

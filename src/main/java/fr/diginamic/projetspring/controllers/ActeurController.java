@@ -1,8 +1,11 @@
 package fr.diginamic.projetspring.controllers;
 
+import fr.diginamic.projetspring.dto.ActeurDTO;
 import fr.diginamic.projetspring.entities.Acteur;
 import fr.diginamic.projetspring.services.ActeurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +27,9 @@ public class ActeurController {
      * @return La liste de tous les acteurs.
      */
     @GetMapping
-    public List<Acteur> getAllActeurs() {
-        return acteurService.getAllActeurs();
+    public Page<ActeurDTO> getAllActeurs(Pageable pageable) {
+        Page<Acteur> acteursPage = acteurService.getAllActeurs(pageable);
+        return acteursPage.map(this::convertToDTO);
     }
 
     /**
@@ -35,8 +39,9 @@ public class ActeurController {
      * @return L'acteur correspondant à l'identifiant.
      */
     @GetMapping("/{acteurId}")
-    public Acteur getActeurById(@PathVariable("acteurId") Integer acteurId) {
-        return acteurService.getActeurById(acteurId);
+    public ActeurDTO getActeurById(@PathVariable("acteurId") Integer acteurId) {
+        Acteur acteur = acteurService.getActeurById(acteurId);
+        return convertToDTO(acteur);
     }
 
     /**
@@ -46,8 +51,9 @@ public class ActeurController {
      * @return L'acteur créé.
      */
     @PostMapping
-    public Acteur createActeur(@RequestBody Acteur acteur) {
-        return acteurService.createActeur(acteur);
+    public ActeurDTO createActeur(@RequestBody Acteur acteur) {
+        Acteur createdActeur = acteurService.createActeur(acteur);
+        return convertToDTO(createdActeur);
     }
 
     /**
@@ -58,8 +64,9 @@ public class ActeurController {
      * @return L'acteur mis à jour.
      */
     @PutMapping("/{acteurId}")
-    public Acteur updateActeur(@PathVariable("acteurId") Integer acteurId, @RequestBody Acteur acteur) {
-        return acteurService.updateActeur(acteurId, acteur);
+    public ActeurDTO updateActeur(@PathVariable("acteurId") Integer acteurId, @RequestBody Acteur acteur) {
+        Acteur updatedActeur = acteurService.updateActeur(acteurId, acteur);
+        return convertToDTO(updatedActeur);
     }
 
     /**
@@ -84,5 +91,16 @@ public class ActeurController {
     public List<Object[]> getActeursInFilms(@RequestParam("filmId1") Integer filmId1,
                                             @RequestParam("filmId2") Integer filmId2) {
         return acteurService.findActeursInFilms(filmId1, filmId2);
+    }
+
+    private ActeurDTO convertToDTO(Acteur acteur) {
+        ActeurDTO dto = new ActeurDTO();
+        dto.setActeurId(acteur.getActeurId());
+        dto.setIdIMDB(acteur.getIdIMDB());
+        dto.setNom(acteur.getNom());
+        dto.setDateNaissance(acteur.getDateNaissance());
+        dto.setLieuNaissance(acteur.getLieuNaissance());
+        dto.setUrlProfile(acteur.getUrlProfile());
+        return dto;
     }
 }

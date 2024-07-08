@@ -3,6 +3,8 @@ package fr.diginamic.projetspring.services;
 import fr.diginamic.projetspring.entities.Realisateur;
 import fr.diginamic.projetspring.repositories.RealisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -31,12 +33,13 @@ public class RealisateurService {
 
 
     /**
-     * Récupère tous les réalisateurs.
+     * Récupère tous les réalisateurs avec pagination.
      *
-     * @return Une liste de tous les réalisateurs.
+     * @param pageable L'objet Pageable pour la pagination.
+     * @return Une page de réalisateurs.
      */
-    public List<Realisateur> getAllRealisateurs() {
-        return realisateurRepository.findAll();
+    public Page<Realisateur> getAllRealisateurs(Pageable pageable) {
+        return realisateurRepository.findAll(pageable);
     }
 
     /**
@@ -56,11 +59,11 @@ public class RealisateurService {
      * @param realisateur Le réalisateur à enregistrer.
      * @return Le réalisateur enregistré.
      */
-  public Realisateur createRealisateur(Realisateur realisateur) {
+    public Realisateur createRealisateur(Realisateur realisateur) {
         return realisateurRepository.save(realisateur);
     }
-  
-     /**
+
+    /**
      * Enregistre un nouveau réalisateur dans la base de données.
      *
      * @param realisateur Le réalisateur à enregistrer.
@@ -68,12 +71,18 @@ public class RealisateurService {
      */
 
     public Realisateur updateRealisateur(Integer idRealisateur, Realisateur realisateur) {
-        // Logique de mise à jour du réalisateur
-        if (realisateurRepository.existsById(idRealisateur)) {
-            realisateur.setIdRealisateur(idRealisateur);
-            return realisateurRepository.save(realisateur);
+        Optional<Realisateur> existingRealisateur = realisateurRepository.findById(idRealisateur);
+        if (existingRealisateur.isPresent()) {
+            Realisateur updatedRealisateur = existingRealisateur.get();
+            // Update fields as needed
+            updatedRealisateur.setNom(realisateur.getNom());
+            updatedRealisateur.setIdIMDB(realisateur.getIdIMDB());
+            updatedRealisateur.setDateNaissance(realisateur.getDateNaissance());
+            updatedRealisateur.setLieuNaissance(realisateur.getLieuNaissance());
+            updatedRealisateur.setUrlProfile(realisateur.getUrlProfile());
+            return realisateurRepository.save(updatedRealisateur);
         }
-        return null; // Ou lancez une exception appropriée si nécessaire
+        return null; // Or handle differently, like throwing an exception
     }
 
     /**

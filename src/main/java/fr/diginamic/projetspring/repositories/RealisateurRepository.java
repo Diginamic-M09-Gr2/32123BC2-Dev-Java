@@ -32,7 +32,7 @@ public interface RealisateurRepository extends JpaRepository<Realisateur, Intege
 
     //Implementation des requetes:
     //  Tache 7: Extraire tous les films d’un réalisateur donné
-    @Query("SELECT f.nom AS film_nom, f.anneeSortie " +
+    @Query("SELECT f.nom AS film_nom, f.anneeSortie, f.langue, f.pays, f.rating " +
             "FROM Realisateur r " +
             "JOIN RealisateurFilm rf ON r.idRealisateur = rf.realisateur.idRealisateur " +
             "JOIN Film f ON rf.film.filmId = f.filmId " +
