@@ -27,12 +27,10 @@ public class RealisateurController {
      *
      * @param realisateurService Service gérant la logique métier des réalisateurs.
      */
+    public RealisateurController(RealisateurService realisateurService) {
+        this.realisateurService = realisateurService;
+    }
 
-    /**
-     * Endpoint pour obtenir la liste de tous les réalisateurs.
-     *
-     * @return La liste de tous les réalisateurs.
-     */
     /**
      * Endpoint pour obtenir la liste de tous les réalisateurs avec pagination.
      *
@@ -44,6 +42,12 @@ public class RealisateurController {
         return realisateurService.getAllRealisateurs(pageable);
     }
 
+    /**
+     * Endpoint pour obtenir un réalisateur par son identifiant.
+     *
+     * @param idRealisateur Identifiant du réalisateur à récupérer.
+     * @return ResponseEntity contenant le réalisateur trouvé ou statut 404 si non trouvé.
+     */
     @GetMapping("/{idRealisateur}")
     public ResponseEntity<Realisateur> getRealisateurById(@PathVariable("idRealisateur") Integer idRealisateur) {
         Optional<Realisateur> realisateur = realisateurService.getRealisateurById(idRealisateur);
@@ -62,11 +66,12 @@ public class RealisateurController {
     }
 
     /**
-     * Endpoint pour supprimer un réalisateur par son identifiant.
+     * Endpoint pour mettre à jour un réalisateur existant.
      *
-     * @param idRealisateur Identifiant du réalisateur à supprimer.
+     * @param idRealisateur Identifiant du réalisateur à mettre à jour.
+     * @param realisateur Nouvelles données du réalisateur.
+     * @return ResponseEntity contenant le réalisateur mis à jour ou statut 404 si non trouvé.
      */
-
     @PutMapping("/{idRealisateur}")
     public ResponseEntity<Realisateur> updateRealisateur(@PathVariable("idRealisateur") Integer idRealisateur, @RequestBody Realisateur realisateur) {
         Realisateur updatedRealisateur = realisateurService.updateRealisateur(idRealisateur, realisateur);
@@ -76,13 +81,23 @@ public class RealisateurController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    /**
+     * Endpoint pour supprimer un réalisateur par son identifiant.
+     *
+     * @param idRealisateur Identifiant du réalisateur à supprimer.
+     */
     @DeleteMapping("/{idRealisateur}")
-    public void deleteRealisateurById(@PathVariable("id") Integer idRealisateur) {
+    public void deleteRealisateurById(@PathVariable("idRealisateur") Integer idRealisateur) {
         realisateurService.deleteRealisateurById(idRealisateur);
     }
 
-    // Implementation des requetes
-    // Tache 7:  Extraire tous les films d’un réalisateur donné
+    /**
+     * Endpoint pour obtenir tous les films d'un réalisateur donné.
+     *
+     * @param idRealisateur Identifiant du réalisateur.
+     * @return Liste d'objets contenant les films du réalisateur.
+     */
     @GetMapping("/{idRealisateur}/films")
     public List<Object[]> getFilmsByRealisateurId(@PathVariable("idRealisateur") Integer idRealisateur) {
         return realisateurService.findFilmsByRealisateurId(idRealisateur);

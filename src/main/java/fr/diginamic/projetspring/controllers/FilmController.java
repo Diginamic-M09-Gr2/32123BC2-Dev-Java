@@ -31,7 +31,6 @@ public class FilmController {
     @Autowired
     private RoleFilmService roleFilmService;
 
-    // Opérations CRUD pour les films
 
     /**
      * Endpoint pour obtenir la liste de tous les films.
@@ -75,9 +74,13 @@ public class FilmController {
      * @param film Les nouvelles données du film.
      * @return Le film mis à jour.
      */
-    @PutMapping("/{filmId}")
-    public Film updateFilm(@PathVariable("filmId") Integer filmId, @RequestBody Film film) {
-        return filmService.updateFilm(filmId, film);
+    public ResponseEntity<Film> updateFilm(@PathVariable("filmId") Integer filmId, @RequestBody Film film) {
+        Film updatedFilm = filmService.updateFilm(filmId, film);
+        if (updatedFilm != null) {
+            return ResponseEntity.ok(updatedFilm);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -85,16 +88,12 @@ public class FilmController {
      * Endpoint pour supprimer un film par son identifiant.
      *
      * @param filmId Identifiant du film à supprimer.
-     * @return Réponse indiquant le succès de l'opération.
      */
     @DeleteMapping("/{filmId}")
     public void deleteFilm(@PathVariable Integer filmId) {
         filmService.deleteFilm(filmId);
     }
 
-    // Opérations spécifiques
-
-    // Ajoutez d'autres méthodes selon vos besoins
     @GetMapping("/byGenres")
     public ResponseEntity<List<Film>> getFilmsByGenres(@RequestParam Set<String> genreTypes) {
         try {

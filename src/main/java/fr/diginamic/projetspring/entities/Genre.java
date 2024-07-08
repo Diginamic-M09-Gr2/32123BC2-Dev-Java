@@ -77,23 +77,9 @@ public class Genre {
         this.type = type;
     }
 
-    /**
-     * Obtient la liste des films associés à ce genre.
-     *
-     * @return La liste des films associés à ce genre.
-     */
-    // Getters and Setters
-
-
-
-    public String toString()
-
-    {
-        return
-
-                "Genre{" +
-                        "genreId=" + genreId +
-                        ", nom='" + type + '\'' +
-                        '}';
+    public String toString() {
+        return "Genre{" +
+                    "genreId=" + genreId +
+                    ", nom='" + type + '\'';
     }
 }

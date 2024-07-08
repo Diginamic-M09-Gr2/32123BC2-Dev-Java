@@ -14,6 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Composant responsable de l'importation des acteurs à partir d'un fichier CSV dans la base de données de l'application.
+ */
 @Component
 public class ImportActeurs {
 
@@ -22,15 +25,18 @@ public class ImportActeurs {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("MMMM d yyyy");
 
+    /**
+     * Importe les acteurs à partir d'un fichier CSV dans la base de données.
+     * Gère les doublons d'identifiants et analyse la date de naissance à partir du fichier CSV.
+     */
     public void importActeurs() {
         Set<String> uniqueActeurIds = new HashSet<>();
 
         Path pathActeurs = Paths.get("src/main/resources/dataset/acteurs.csv");
         try {
             List<String> rowsActeurs = Files.readAllLines(pathActeurs);
-            rowsActeurs.remove(0);
+            rowsActeurs.remove(0); // Supprime la ligne d'en-tête
             for (String rowActeur : rowsActeurs) {
-                System.out.println(rowActeur);
                 String[] elements = rowActeur.split(";");
                 String idIMDB = elements[0].trim();
                 if (!uniqueActeurIds.contains(idIMDB)) {
@@ -39,18 +45,25 @@ public class ImportActeurs {
                         acteurService.createActeur(acteur);
                         uniqueActeurIds.add(idIMDB);
                     } catch (DataIntegrityViolationException e) {
-                        System.out.println("Duplicate ID: " + idIMDB);
+                        System.out.println("ID en double : " + idIMDB);
                     }
                 } else {
-                    System.out.println("Duplicate ID: " + idIMDB);
+                    System.out.println("ID en double : " + idIMDB);
                 }
             }
-            System.out.println("Unique IDs Set: " + uniqueActeurIds);
+            System.out.println("Ensemble d'IDs uniques : " + uniqueActeurIds);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Crée un objet Acteur à partir des éléments d'un tableau de chaînes extraits du fichier CSV.
+     *
+     * @param elements Tableau d'éléments de chaîne contenant les informations sur l'acteur.
+     * @return Un objet Acteur rempli avec les données du fichier CSV.
+     * @throws ParseException Si une erreur se produit lors de l'analyse de la date de naissance à partir du CSV.
+     */
     private Acteur createActeurFromElements(String[] elements) throws ParseException {
         Acteur acteur = new Acteur();
         acteur.setIdIMDB(elements[0].trim());

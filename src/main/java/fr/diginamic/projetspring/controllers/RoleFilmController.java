@@ -75,7 +75,6 @@ public class RoleFilmController {
         return ResponseEntity.noContent().build();
     }
 
-    // Ajoutez d'autres méthodes d'endpoint au besoin
     @GetMapping("/acteur/{acteurId}")
     public List<RoleFilm> findByActeurId(@PathVariable("acteurId") Integer acteurId) {
         return roleFilmService.findByActeurId(acteurId);

@@ -9,21 +9,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service gérant les opérations liées à l'entité Acteur.
  */
 @Service
 public class ActeurService {
-    @Autowired
-    private ActeurRepository acteurRepository;
-
     /**
      * Constructeur du service Acteur.
      *
-     * @param acteurRepository Le repository Spring Data JPA pour l'entité Acteur.
      */
-
+    @Autowired
+    private ActeurRepository acteurRepository;
 
     /**
      * Récupère tous les acteurs.
@@ -50,8 +48,6 @@ public class ActeurService {
      * @param acteur L'acteur à créer.
      * @return L'acteur créé.
      */
-
-    // Logique de création de l'acteur (par exemple, validation des données, etc.)
     public Acteur createActeur(Acteur acteur) {
         return acteurRepository.save(acteur);
     }
@@ -64,12 +60,19 @@ public class ActeurService {
      * @return L'acteur mis à jour, ou null si l'acteur avec l'ID spécifié n'existe pas.
      */
     public Acteur updateActeur(Integer acteurId, Acteur acteur) {
-        // Logique de mise à jour de l'acteur (par exemple, vérification de l'existence de l'acteur, validation des données, etc.)
-        if (acteurRepository.existsById(acteurId)) {
-            acteur.setActeurId(acteurId);
-            return acteurRepository.save(acteur);
+        Optional<Acteur> existingActeur = acteurRepository.findById(acteurId);
+        if (existingActeur.isPresent()) {
+            Acteur updatedActeur = existingActeur.get();
+            updatedActeur.setNom(acteur.getNom());
+            updatedActeur.setIdIMDB(acteur.getIdIMDB());
+            updatedActeur.setDateNaissance(acteur.getDateNaissance());
+            updatedActeur.setLieuNaissance(acteur.getLieuNaissance());
+            updatedActeur.setUrlProfile(acteur.getUrlProfile());
+            updatedActeur.setActeurId(acteurId);
+            return acteurRepository.save(updatedActeur);
+        } else {
+            throw new IllegalArgumentException("Acteur with ID " + acteurId + " not found");
         }
-        return null; // Ou lancez une exception appropriée si nécessaire
     }
 
     /**

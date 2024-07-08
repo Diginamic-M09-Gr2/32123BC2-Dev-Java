@@ -15,14 +15,21 @@ public class Acteur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer acteurId;
 
-    /** Nom de l'acteur. */
+    /** Identifiant IMDB de l'acteur. */
     @Column(unique = true)
     private String idIMDB;
+
+    /** Nom de l'acteur. */
     private String nom;
-    // Indique le mapping de 'Date' au type SQL 'DATE' coté BDD
+
+    /** Date de naissance de l'acteur. */
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
+
+    /** Lieu de naissance de l'acteur. */
     private String lieuNaissance;
+
+    /** URL du profil de l'acteur. */
     private String urlProfile;
 
     /** Liste des rôles que l'acteur a joués dans des films. */
@@ -30,6 +37,7 @@ public class Acteur {
     private List<RoleFilm> rolefilm;
 
     // Constructeurs
+
     /**
      * Constructeur par défaut.
      */
@@ -37,20 +45,23 @@ public class Acteur {
     }
 
     /**
-     * Constructeur avec nom, prénom et film dans lequel l'acteur a joué.
+     * Constructeur avec les paramètres nécessaires pour créer un nouvel acteur.
      *
-     * @param nom    Nom de l'acteur.
-     *  film   Film dans lequel l'acteur a joué.
+     * @param acteurIdStr Identifiant de l'acteur (converti en entier).
+     * @param lieuNaissance Lieu de naissance de l'acteur.
+     * @param dateNaissance Date de naissance de l'acteur.
+     * @param nom Nom de l'acteur.
+     * @param urlProfile URL du profil de l'acteur.
      */
     public Acteur(String acteurIdStr, String lieuNaissance, Date dateNaissance, String nom, String urlProfile) {
-        this.acteurId = Integer.parseInt(acteurIdStr); // Convert acteurId to integer
+        this.acteurId = Integer.parseInt(acteurIdStr);
         this.lieuNaissance = lieuNaissance;
         this.dateNaissance = dateNaissance;
         this.nom = nom;
         this.urlProfile = urlProfile;
     }
 
-    // Getters et setters
+    // Getters and setters
 
     /**
      * Obtient l'identifiant unique de l'acteur dans notre base de données.
@@ -71,18 +82,18 @@ public class Acteur {
     }
 
     /**
-     * Obtient l'identifiant imdb de l'acteur.
+     * Obtient l'identifiant IMDB de l'acteur.
      *
-     * @return L'identifiant unique de l'acteur.
+     * @return L'identifiant IMDB de l'acteur.
      */
     public String getIdIMDB() {
         return idIMDB;
     }
 
     /**
-     * Définit l'identifiant imdb de l'acteur.
+     * Définit l'identifiant IMDB de l'acteur.
      *
-     * @param idIMDB L'identifiant imdb de l'acteur
+     * @param idIMDB L'identifiant IMDB de l'acteur.
      */
     public void setIdIMDB(String idIMDB) {
         this.idIMDB = idIMDB;
@@ -106,35 +117,6 @@ public class Acteur {
         this.nom = nom;
     }
 
-
-    public String getLieuNaissance() {
-        return lieuNaissance;
-    }
-    public void setLieuNaissance(String lieuNaissance) {
-        this.lieuNaissance = lieuNaissance;
-    }
-
-    public String getUrlProfile() {
-        return urlProfile;
-    }
-    public void setUrlProfile(String urlProfile) {
-        this.urlProfile = urlProfile;
-    }
-
-    /**
-     * Obtient le film dans lequel l'acteur a joué.
-     *
-     * @return Le film dans lequel l'acteur a joué.
-     */
-
-
-    /**
-     * Définit le film dans lequel l'acteur a joué.
-     *
-     *  Le film dans lequel l'acteur a joué.
-     */
-
-
     /**
      * Obtient la date de naissance de l'acteur.
      *
@@ -154,6 +136,42 @@ public class Acteur {
     }
 
     /**
+     * Obtient le lieu de naissance de l'acteur.
+     *
+     * @return Le lieu de naissance de l'acteur.
+     */
+    public String getLieuNaissance() {
+        return lieuNaissance;
+    }
+
+    /**
+     * Définit le lieu de naissance de l'acteur.
+     *
+     * @param lieuNaissance Le lieu de naissance de l'acteur.
+     */
+    public void setLieuNaissance(String lieuNaissance) {
+        this.lieuNaissance = lieuNaissance;
+    }
+
+    /**
+     * Obtient l'URL du profil de l'acteur.
+     *
+     * @return L'URL du profil de l'acteur.
+     */
+    public String getUrlProfile() {
+        return urlProfile;
+    }
+
+    /**
+     * Définit l'URL du profil de l'acteur.
+     *
+     * @param urlProfile L'URL du profil de l'acteur.
+     */
+    public void setUrlProfile(String urlProfile) {
+        this.urlProfile = urlProfile;
+    }
+
+    /**
      * Obtient la liste des rôles que l'acteur a joués dans des films.
      *
      * @return La liste des rôles que l'acteur a joués.
@@ -161,13 +179,21 @@ public class Acteur {
     public List<RoleFilm> getRolefilm() {
         return rolefilm;
     }
+
+    /**
+     * Définit la liste des rôles que l'acteur a joués dans des films.
+     *
+     * @param rolefilm La liste des rôles que l'acteur a joués.
+     */
     public void setRolefilm(List<RoleFilm> rolefilm) {
         this.rolefilm = rolefilm;
     }
 
-    // Autres méthodes
-    // (Ajoutez ici d'autres méthodes pertinentes avec des commentaires JavaDoc)
-
+    /**
+     * Renvoie une chaîne représentant l'objet acteur.
+     *
+     * @return Une chaîne représentant l'objet acteur.
+     */
     @Override
     public String toString() {
         return "Acteur{" +

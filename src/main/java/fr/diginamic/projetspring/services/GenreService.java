@@ -24,6 +24,7 @@ public class GenreService {
     public List<Genre> findAll() {
         return genreRepository.findAll();
     }
+
     public Genre updateGenre(Integer genreId, Genre genre) {
         // Votre logique de mise à jour du genre
 

@@ -35,8 +35,6 @@ public class RoleFilm {
     @Column(name = "film_id", insertable = false, updatable = false)
     private Integer filmId;
 
-    // Constructeurs
-
     /**
      * Constructeur par défaut.
      */
@@ -46,9 +44,10 @@ public class RoleFilm {
     /**
      * Constructeur avec acteur, film et personnage.
      *
-     *  acteur     L'acteur qui joue le rôle.
-     *  film       Le film dans lequel le rôle est joué.
+     * @param roleId Identifiant du rôle.
      * @param personnage Le personnage joué par l'acteur dans le film.
+     * @param film Le film dans lequel le rôle est joué.
+     * @param acteur L'acteur qui joue le rôle.
      */
     public RoleFilm(Integer roleId, String personnage, Film film, Acteur acteur) {
         this.roleId = roleId;
@@ -98,40 +97,88 @@ public class RoleFilm {
         this.personnage = personnage;
     }
 
+    /**
+     * Obtient le film dans lequel le rôle est joué.
+     *
+     * @return Le film dans lequel le rôle est joué.
+     */
     public Film getFilm() {
         return film;
     }
 
+    /**
+     * Définit le film dans lequel le rôle est joué.
+     *
+     * @param film Le film dans lequel le rôle est joué.
+     */
     public void setFilm(Film film) {
         this.film = film;
     }
 
+    /**
+     * Obtient l'acteur qui joue le rôle.
+     *
+     * @return L'acteur qui joue le rôle.
+     */
     public Acteur getActeur() {
         return acteur;
     }
 
+    /**
+     * Définit l'acteur qui joue le rôle.
+     *
+     * @param acteur L'acteur qui joue le rôle.
+     */
     public void setActeur(Acteur acteur) {
         this.acteur = acteur;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" + "roleId=" + roleId + ", personnage='" + personnage + '\'' + '}';
-    }
-
+    /**
+     * Obtient l'identifiant de l'acteur associé à ce rôle.
+     *
+     * @return L'identifiant de l'acteur associé à ce rôle.
+     */
     public Integer getActeurId() {
         return acteurId;
     }
 
+    /**
+     * Définit l'identifiant de l'acteur associé à ce rôle.
+     *
+     * @param acteurId L'identifiant de l'acteur associé à ce rôle.
+     */
     public void setActeurId(Integer acteurId) {
         this.acteurId = acteurId;
     }
 
+    /**
+     * Obtient l'identifiant du film associé à ce rôle.
+     *
+     * @return L'identifiant du film associé à ce rôle.
+     */
     public Integer getFilmId() {
         return filmId;
     }
 
+    /**
+     * Définit l'identifiant du film associé à ce rôle.
+     *
+     * @param filmId L'identifiant du film associé à ce rôle.
+     */
     public void setFilmId(Integer filmId) {
         this.filmId = filmId;
+    }
+
+    /**
+     * Renvoie une chaîne représentant l'objet rôle.
+     *
+     * @return Une chaîne représentant l'objet rôle.
+     */
+    @Override
+    public String toString() {
+        return "RoleFilm{" +
+                "roleId=" + roleId +
+                ", personnage='" + personnage + '\'' +
+                '}';
     }
 }

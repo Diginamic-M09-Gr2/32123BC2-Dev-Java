@@ -6,6 +6,7 @@ import fr.diginamic.projetspring.services.ActeurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,10 +64,13 @@ public class ActeurController {
      * @param acteur Les nouvelles données de l'acteur.
      * @return L'acteur mis à jour.
      */
-    @PutMapping("/{acteurId}")
-    public ActeurDTO updateActeur(@PathVariable("acteurId") Integer acteurId, @RequestBody Acteur acteur) {
+    public ResponseEntity<ActeurDTO> updateActeur(@PathVariable("acteurId") Integer acteurId, @RequestBody Acteur acteur) {
         Acteur updatedActeur = acteurService.updateActeur(acteurId, acteur);
-        return convertToDTO(updatedActeur);
+        if (updatedActeur != null) {
+            return ResponseEntity.ok(convertToDTO(updatedActeur));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**

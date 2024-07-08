@@ -20,16 +20,9 @@ public class RealisateurService {
     /**
      * Constructeur du service Realisateur.
      *
-     * @param realisateurRepository Le repository pour les opérations liées à l'entité Realisateur.
      */
     @Autowired
     private RealisateurRepository realisateurRepository;
-
-    /**
-     * Insère un réalisateur dans la base de données.
-     *
-     * @param realisateur Le réalisateur à insérer.
-     */
 
 
     /**
@@ -74,7 +67,6 @@ public class RealisateurService {
         Optional<Realisateur> existingRealisateur = realisateurRepository.findById(idRealisateur);
         if (existingRealisateur.isPresent()) {
             Realisateur updatedRealisateur = existingRealisateur.get();
-            // Update fields as needed
             updatedRealisateur.setNom(realisateur.getNom());
             updatedRealisateur.setIdIMDB(realisateur.getIdIMDB());
             updatedRealisateur.setDateNaissance(realisateur.getDateNaissance());

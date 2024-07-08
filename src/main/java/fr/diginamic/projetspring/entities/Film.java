@@ -220,11 +220,20 @@ public class Film {
         this.lieuTournage = lieuTournage;
     }
 
-
+    /**
+     * Obtient les genres associés à ce film.
+     *
+     * @return Les genres associés à ce film.
+     */
     public Set<Genre> getGenres() {
         return genres;
     }
 
+    /**
+     * Définit les genres associés à ce film.
+     *
+     * @param genres Les genres associés à ce film.
+     */
     public void setGenres(Set<Genre> genres) {
         this.genres = genres;
     }
