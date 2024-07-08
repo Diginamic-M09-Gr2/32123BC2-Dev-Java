@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -61,14 +62,27 @@ public class FilmService {
      *  * @param film   Les nouvelles données du film.
      *  * @return Le film mis à jour, ou un Optional vide si le film avec l'ID spécifié n'existe pas.
      *  */
-
-
     public Film updateFilm(Integer filmId, Film film) {
-        if (filmRepository.existsById(filmId)) {
-            film.setFilmId(filmId); // Utilisez setId pour définir l'identifiant du film
-            return filmRepository.save(film);
+        Optional<Film> existingFilm = filmRepository.findById(filmId);
+        if (existingFilm.isPresent()) {
+            Film updatedFilm = existingFilm.get();
+            updatedFilm.setNom(film.getNom());
+            updatedFilm.setIdIMDB(film.getIdIMDB());
+            updatedFilm.setAnneeSortie(film.getAnneeSortie());
+            updatedFilm.setRating(film.getRating());
+            updatedFilm.setUrlProfile(film.getUrlProfile());
+            updatedFilm.setLieuTournage(film.getLieuTournage());
+            updatedFilm.setLangue(film.getLangue());
+            updatedFilm.setResume(film.getResume());
+            updatedFilm.setPays(film.getPays());
+            updatedFilm.setGenres(film.getGenres());
+            updatedFilm.setFilmId(filmId);
+
+            return filmRepository.save(updatedFilm);
+        } else {
+            throw new IllegalArgumentException("Film with ID " + filmId + " not found");
+            // Alternatively, you can return null or handle the case according to your application's logic
         }
-        return null;
     }
 
     /**

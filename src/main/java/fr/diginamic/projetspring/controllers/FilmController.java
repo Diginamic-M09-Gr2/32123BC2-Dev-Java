@@ -160,6 +160,4 @@ public class FilmController {
         dto.setGenres(film.getGenres());
         return dto;
     }
-
-
 }
