@@ -64,6 +64,7 @@ public class ActeurController {
      * @param acteur Les nouvelles données de l'acteur.
      * @return L'acteur mis à jour.
      */
+    @PutMapping("/{acteurId}")
     public ResponseEntity<ActeurDTO> updateActeur(@PathVariable("acteurId") Integer acteurId, @RequestBody Acteur acteur) {
         Acteur updatedActeur = acteurService.updateActeur(acteurId, acteur);
         if (updatedActeur != null) {

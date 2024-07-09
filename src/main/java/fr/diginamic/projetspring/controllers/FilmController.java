@@ -74,6 +74,7 @@ public class FilmController {
      * @param film Les nouvelles données du film.
      * @return Le film mis à jour.
      */
+    @PutMapping("/{filmId}")
     public ResponseEntity<Film> updateFilm(@PathVariable("filmId") Integer filmId, @RequestBody Film film) {
         Film updatedFilm = filmService.updateFilm(filmId, film);
         if (updatedFilm != null) {
